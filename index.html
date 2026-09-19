@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Subah - The New Beginning</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* GLOBAL */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: #ffffff;
+    color: #1d1d1f;
+    -webkit-font-smoothing: antialiased;
+}
+
+button { font-family: inherit; cursor: pointer; }
+
+:focus-visible { outline: 2px solid #0071e3; outline-offset: 3px; border-radius: 6px; }
+
+/* HERO */
+.hero { text-align: center; padding: 100px 20px 60px; }
+.hero h2 { font-size: 58px; font-weight: 700; margin: 0 0 14px; line-height: 1.08; }
+.word { display: block; }
+.light span { color: #1d1d1f; }
+.glow span { color: #0071e3; }
+.hero p { color: #6e6e73; font-size: 18px; margin: 0; }
+
+@media(max-width:768px){ .hero { padding: 64px 20px 40px; } .hero h2 { font-size: 38px; } }
+
+/* TEXT ANIMATION */
+.word span { display: inline-block; opacity: 0; transform: translateY(40px); }
+@keyframes letterReveal { to { opacity: 1; transform: translateY(0); } }
+@keyframes glowPulse {
+    0% { text-shadow: 0 0 5px rgba(0,113,227,0.2); }
+    50% { text-shadow: 0 0 20px rgba(0,113,227,0.7); }
+    100% { text-shadow: 0 0 5px rgba(0,113,227,0.2); }
+}
+.glow { animation: glowPulse 3s infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+    .glow { animation: none; }
+    .word span { opacity: 1 !important; transform: none !important; animation: none !important; }
+    * { transition: none !important; }
+}
+
+/* SECTION */
+.section { padding: 70px 0; }
+.section h2 { text-align: center; font-size: 30px; margin: 0; }
+.section .sub { text-align: center; color: #6e6e73; font-size: 15px; margin: 10px 20px 0; }
+
+/* SCROLL */
+.scroll {
+    display: flex;
+    gap: 20px;
+    overflow-x: auto;
+    padding: 30px 20px;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+}
+.scroll::-webkit-scrollbar { display: none; }
+.scroll { scrollbar-width: none; }
+
+/* CARD */
+.card {
+    flex: 0 0 240px;
+    height: 340px;
+    background: #f5f5f7;
+    border-radius: 18px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    scroll-snap-align: start;
+    transition: transform .3s ease, box-shadow .3s ease;
+}
+.card img { width: 100%; height: 170px; object-fit: cover; background: linear-gradient(135deg,#dbe7f5,#c9d8ee); display: block; }
+.card-content { flex: 1; display: grid; grid-template-rows: 1fr auto; align-items: center; text-align: center; padding: 16px; gap: 10px; }
+.card h3 { font-size: 17px; font-weight: 800; color: #000; margin: 0; line-height: 1.3; }
+.card .count { display: block; font-size: 12px; font-weight: 500; color: #6e6e73; margin-top: 6px; }
+.card button {
+    padding: 7px 14px; border-radius: 18px; border: none;
+    background: #0071e3; color: #fff;
+    font-size: 12px; font-weight: 600; letter-spacing: .3px;
+    transition: .3s ease;
+}
+.card button:hover { background: #005bb5; }
+.card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,0,0,0.12); }
+
+@media(max-width:768px){ .card { flex: 0 0 200px; height: 300px; } }
+
+/* CTA */
+.cta { text-align: center; padding: 80px 20px; background: #f5f5f7; }
+.cta h2 { font-size: 30px; margin: 0 0 8px; }
+.cta p { color: #6e6e73; margin: 0 0 24px; }
+.cta button {
+    padding: 14px 30px; border-radius: 25px; border: none;
+    background: #0071e3; color: #fff; font-size: 16px; font-weight: 600;
+}
+.cta button:hover { background: #005bb5; }
+
+footer { text-align: center; padding: 34px 20px; color: #86868b; font-size: 14px; }
+footer p { margin: 0; }
+.contact {
+    display: flex; justify-content: center; align-items: center;
+    gap: 12px; flex-wrap: wrap; margin-bottom: 18px;
+}
+.contact a {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 10px 20px; border-radius: 22px; text-decoration: none;
+    font-size: 15px; font-weight: 600;
+    color: #1d1d1f; background: #f0f0f3;
+}
+.contact a:hover { background: #e2e2e7; }
+.contact a.wa { background: #25d366; color: #fff; }
+.contact a.wa:hover { background: #1eb455; }
+.contact a.wa::before {
+    content: ""; width: 16px; height: 16px; flex: 0 0 16px;
+    background: #fff;
+    -webkit-mask: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.06c-.24.68-1.42 1.32-1.95 1.37-.5.05-1.13.07-1.83-.11-.42-.11-.96-.29-1.66-.59-2.92-1.26-4.82-4.2-4.97-4.4-.14-.19-1.18-1.57-1.18-3s.75-2.13 1.02-2.42c.26-.29.57-.36.77-.36.19 0 .38 0 .55.01.18.01.41-.07.65.49.24.58.83 2.01.9 2.15.07.15.12.32.02.51-.1.19-.15.31-.29.48-.15.17-.31.38-.44.51-.15.14-.3.3-.13.59.17.29.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.35 1.46.29.14.46.12.63-.07.17-.19.73-.85.92-1.14.19-.29.39-.24.65-.15.26.1 1.68.79 1.96.94.29.14.48.22.55.34.07.12.07.7-.17 1.38z'/%3E%3C/svg%3E") center/contain no-repeat;
+    mask: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.06c-.24.68-1.42 1.32-1.95 1.37-.5.05-1.13.07-1.83-.11-.42-.11-.96-.29-1.66-.59-2.92-1.26-4.82-4.2-4.97-4.4-.14-.19-1.18-1.57-1.18-3s.75-2.13 1.02-2.42c.26-.29.57-.36.77-.36.19 0 .38 0 .55.01.18.01.41-.07.65.49.24.58.83 2.01.9 2.15.07.15.12.32.02.51-.1.19-.15.31-.29.48-.15.17-.31.38-.44.51-.15.14-.3.3-.13.59.17.29.76 1.25 1.63 2.03 1.12 1 2.06 1.31 2.35 1.46.29.14.46.12.63-.07.17-.19.73-.85.92-1.14.19-.29.39-.24.65-.15.26.1 1.68.79 1.96.94.29.14.48.22.55.34.07.12.07.7-.17 1.38z'/%3E%3C/svg%3E") center/contain no-repeat;
+}
+
+/* ---------- MODAL ---------- */
+.overlay {
+    position: fixed; inset: 0; z-index: 90;
+    background: rgba(0,0,0,.45);
+    backdrop-filter: blur(6px);
+    display: none;
+    align-items: flex-end; justify-content: center;
+    padding: 0;
+}
+.overlay.open { display: flex; }
+
+.sheet {
+    background: #fff;
+    width: 100%; max-width: 900px;
+    max-height: 92vh;
+    border-radius: 22px 22px 0 0;
+    display: flex; flex-direction: column;
+    animation: sheetUp .28s ease;
+}
+@keyframes sheetUp { from { transform: translateY(40px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+@media(min-width:800px){
+    .overlay { align-items: center; padding: 24px; }
+    .sheet { border-radius: 22px; max-height: 88vh; }
+}
+
+.sheet-head {
+    padding: 22px 24px 14px;
+    border-bottom: 1px solid #ededf0;
+    display: flex; align-items: flex-start; gap: 14px;
+    position: sticky; top: 0; background: #fff; z-index: 2;
+    border-radius: 22px 22px 0 0;
+}
+.sheet-head h3 { margin: 0; font-size: 21px; font-weight: 700; }
+.sheet-head p { margin: 4px 0 0; font-size: 13px; color: #6e6e73; }
+.closeBtn {
+    margin-left: auto; border: none; background: #f0f0f3; color: #1d1d1f;
+    width: 32px; height: 32px; border-radius: 50%; font-size: 17px; line-height: 1;
+    flex: 0 0 auto;
+}
+.closeBtn:hover { background: #e2e2e7; }
+
+.sheet-body { padding: 18px 24px 28px; overflow-y: auto; }
+
+.searchbar {
+    width: 100%; padding: 11px 14px; border-radius: 12px;
+    border: 1px solid #d8d8dd; font-size: 15px; margin-bottom: 18px;
+    font-family: inherit; background: #fafafa;
+}
+.searchbar:focus { outline: none; border-color: #0071e3; background: #fff; }
+
+.level {
+    font-size: 12px; font-weight: 700; color: #0071e3;
+    letter-spacing: .4px; margin: 22px 0 10px;
+}
+.level:first-child { margin-top: 0; }
+
+/* course accordion */
+.course { border: 1px solid #ededf0; border-radius: 14px; margin-bottom: 8px; overflow: hidden; }
+.course-head {
+    width: 100%; text-align: left; background: #fff; border: none;
+    padding: 13px 16px; font-size: 14.5px; font-weight: 600; color: #1d1d1f;
+    display: flex; align-items: center; gap: 12px;
+}
+.course-head:hover { background: #fafafa; }
+.course-head .chev { margin-left: auto; color: #86868b; font-size: 13px; transition: transform .25s ease; flex: 0 0 auto; }
+.course.open .chev { transform: rotate(180deg); }
+.course.open .course-head { background: #f5f8fd; }
+
+.course-body { display: none; padding: 4px 16px 16px; background: #f5f8fd; }
+.course.open .course-body { display: block; }
+
+.facts { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 12px; }
+@media(max-width:560px){ .facts { grid-template-columns: 1fr; } }
+.fact { background: #fff; border-radius: 10px; padding: 10px 12px; }
+.fact .k { font-size: 11px; color: #86868b; margin-bottom: 3px; }
+.fact .v { font-size: 14px; font-weight: 600; }
+.elig { background: #fff; border-radius: 10px; padding: 10px 12px; font-size: 13.5px; line-height: 1.5; }
+.elig .k { font-size: 11px; color: #86868b; margin-bottom: 3px; }
+
+.applyLine { display: flex; align-items: center; gap: 12px; margin-top: 12px; flex-wrap: wrap; }
+.applyLine button {
+    padding: 9px 18px; border-radius: 18px; border: none;
+    background: #0071e3; color: #fff; font-size: 13px; font-weight: 600;
+}
+.applyLine button:hover { background: #005bb5; }
+.applyLine span { font-size: 11.5px; color: #86868b; }
+
+/* university list */
+.uni { border: 1px solid #ededf0; border-radius: 14px; padding: 14px 16px; margin-bottom: 10px; }
+.uni h4 { margin: 0 0 3px; font-size: 15.5px; font-weight: 700; }
+.uni .place { font-size: 12.5px; color: #6e6e73; margin-bottom: 10px; }
+.uni .facts { margin-bottom: 0; }
+
+.notice { font-size: 12px; color: #86868b; line-height: 1.55; margin-top: 18px; padding-top: 14px; border-top: 1px solid #ededf0; }
+
+/* ---------- FORM ---------- */
+.field { margin-bottom: 14px; }
+.field label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+.field input, .field select {
+    width: 100%; padding: 11px 13px; border-radius: 11px;
+    border: 1px solid #d8d8dd; font-size: 15px; font-family: inherit;
+    background: #fafafa; color: #1d1d1f;
+}
+.field input:focus, .field select:focus { outline: none; border-color: #0071e3; background: #fff; }
+.field .err { color: #d70015; font-size: 12px; margin-top: 5px; display: none; }
+.field.bad input, .field.bad select { border-color: #d70015; }
+.field.bad .err { display: block; }
+
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+@media(max-width:560px){ .grid2 { grid-template-columns: 1fr; gap: 0; } }
+
+.prefBox { background: #f5f8fd; border-radius: 14px; padding: 14px 14px 2px; margin-bottom: 14px; }
+.prefBox .title { font-size: 13px; font-weight: 700; margin-bottom: 12px; }
+
+.submitBtn {
+    width: 100%; padding: 14px; border-radius: 25px; border: none;
+    background: #0071e3; color: #fff; font-size: 16px; font-weight: 600; margin-top: 6px;
+}
+.submitBtn:hover { background: #005bb5; }
+
+.done { text-align: center; padding: 10px 0 4px; }
+.done .tick {
+    width: 54px; height: 54px; border-radius: 50%; background: #e6f4ea; color: #1a7f37;
+    font-size: 27px; display: flex; align-items: center; justify-content: center; margin: 0 auto 14px;
+}
+.done h4 { margin: 0 0 6px; font-size: 19px; }
+.done p { margin: 0 0 18px; color: #6e6e73; font-size: 14px; }
+.summary { text-align: left; background: #f5f5f7; border-radius: 14px; padding: 14px 16px; font-size: 13.5px; line-height: 1.7; }
+.summary b { font-weight: 600; }
+.doneBtns { display: flex; gap: 10px; margin-top: 16px; flex-wrap: wrap; }
+.doneBtns a, .doneBtns button {
+    flex: 1; min-width: 140px; text-align: center; text-decoration: none;
+    padding: 11px 16px; border-radius: 20px; font-size: 14px; font-weight: 600;
+    border: 1px solid #0071e3; color: #0071e3; background: #fff;
+}
+.doneBtns a.primary { background: #0071e3; color: #fff; }
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<section class="hero">
+    <h2>
+        <div class="word light">The New</div>
+        <div class="word glow">Beginning</div>
+    </h2>
+    <p>Your Admission, Our Mission</p>
+</section>
+
+<!-- COURSES -->
+<section class="section">
+<h2>Explore Courses</h2>
+<p class="sub">Pick a stream to see every programme, with duration, fees and eligibility.</p>
+<div class="scroll" id="courseScroll"></div>
+</section>
+
+<!-- MBBS -->
+<section class="section" style="background:#f5f5f7">
+<h2>MBBS Abroad</h2>
+<p class="sub">NMC-aware options with indicative tuition and hostel costs.</p>
+<div class="scroll" id="mbbsScroll"></div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+<h2>Start Your Journey</h2>
+<p>Fill the form once — our counsellor calls you back with a shortlist.</p>
+<button onclick="openApply()">Apply Now</button>
+</section>
+
+<footer>
+  <div class="contact">
+    <a href="tel:+919682533249">+91-9682533249</a>
+    <a class="wa" href="https://wa.me/919682533249?text=Hi%20Subah%2C%20I%20want%20to%20know%20about%20admissions." target="_blank" rel="noopener">Chat on WhatsApp</a>
+  </div>
+  <p>© 2026 Subah - The New Beginning</p>
+</footer>
+
+<!-- ================= MODAL ================= -->
+<div class="overlay" id="overlay" onclick="if(event.target===this) closeSheet()">
+  <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <div class="sheet-head">
+      <div>
+        <h3 id="sheetTitle">Title</h3>
+        <p id="sheetSub"></p>
+      </div>
+      <button class="closeBtn" onclick="closeSheet()" aria-label="Close">✕</button>
+    </div>
+    <div class="sheet-body" id="sheetBody"></div>
+  </div>
+</div>
+
+<script>
+/* =========================================================
+   1. COURSE CATALOGUE
+   ========================================================= */
+const CATALOG = [
+{
+  key:"allied", title:"Allied Health Sciences",
+  img:"https://images.unsplash.com/photo-1581595219315-a187dd40c322?w=640&q=70",
+  groups:[
+    {level:"Undergraduate", items:[
+      "Bachelor of Medical Laboratory Technology","Bachelor of Radiation Technology","B.Sc. in Nutrition and Dietetics",
+      "B.Sc. in Clinical Research","Bachelor of Ophthalmic Technology","Bachelor in Operation Theatre Technology",
+      "Bachelor in Cardiac Perfusion Technology","Bachelor in Radiotherapy Technology",
+      "Bachelor in Emergency and Trauma Care Technology","Bachelor in EEG Technology",
+      "Bachelor in Transfusion Medicine Technology","Bachelor in Endoscopy Technology",
+      "Bachelor in Dialysis Technology","Bachelor in ECG Technology","Bachelor in Cath Lab Technology",
+      "B.Sc. in Public Health"]},
+    {level:"Postgraduate", items:[
+      "M.Sc. in Medical Lab. Technology","M.Sc. in Medical Lab. Technology (Pathology)",
+      "M.Sc. in Medical Lab. Technology (Microbiology)","M.Sc. in Medical Lab. Technology (Biochemistry)",
+      "M.Sc. in Nutrition and Dietetics","M.Sc. in Radiation & Imaging Technology",
+      "M.Sc. in Ophthalmology & Optometry Technology","M.Sc. in Dialysis Technology","M.Sc. in Anesthesia Technology",
+      "M.Sc. in Emergency Medical Technology","M.Sc. in Intensive Care Technology","M.Sc. in Cardiac Perfusion Technology",
+      "M.Sc. in Respiratory Therapy","M.Sc. in Radiotherapy Technology","M.Sc. in Operation Theatre Technology",
+      "M.Sc. in Clinical Research","M.Sc. in Blood Transfusion","Master of Optometry","M.Sc. in Public Health",
+      "Master of Science in Medical Anatomy","Master of Science in Medical Biochemistry",
+      "Master of Science in Medical Microbiology","Master of Science in Medical Pharmacology",
+      "Master of Science in Medical Physiology"]},
+    {level:"Diploma", items:[
+      "Diploma in Medical Lab. Technology","Diploma in Radiation Technology","Diploma in E.C.G Technology",
+      "Diploma in Ophthalmic Technology","Diploma in Operation Theatre Technology","Diploma in Dialysis Technology",
+      "Diploma in Blood Bank Technology","Diploma in Cath. Lab. Technology"]}
+  ]
+},
+{
+  key:"nursing", title:"Nursing",
+  img:"https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?w=640&q=70",
+  groups:[
+    {level:"Undergraduate", items:["B.Sc. Nursing"]},
+    {level:"Diploma", items:["General Nursing & Midwifery (GNM)"]}
+  ]
+},
+{
+  key:"engg", title:"Engineering & Technology",
+  img:"https://images.unsplash.com/photo-1581092335397-9583eb92d232?w=640&q=70",
+  groups:[
+    {level:"B.Tech — Core Engineering", items:[
+      "B.Tech. in Aerospace Engineering","B.Tech. in Automobile Engineering","B.Tech. in Chemical Engineering",
+      "B.Tech. in Electrical Engineering","B.Tech. in Electronics and Communication Engineering",
+      "B.Tech. in Energy and Power Engineering","B.Tech. in Mechanical Engineering","B.Tech. in Petroleum Engineering",
+      "B.Tech. in Nano Technology","B.Tech. in Instrumentation and Control Engineering","B.Tech. in Civil Engineering",
+      "B.Tech. in Mechatronics Engineering","B.Tech. in Biomedical Engineering","B.Tech. in Dairy Technology",
+      "B.Tech. in Food Technology","B.Tech. in Agriculture Engineering","B.Tech. in Biotechnology"]},
+    {level:"B.Tech — Computing, AI & Robotics", items:[
+      "B.Tech. in Computer Science and Engineering","B.Tech. in Information Technology",
+      "B.Tech. in Artificial Intelligence and Machine Learning","B.Tech. in Data Science & Engineering",
+      "B.Tech. in Cloud Computing and Virtualization Technology","B.Tech. in IoT, Cybernetics & Blockchain Technology",
+      "B.Tech. in Automation & Robotics","B.Tech. in Computer Science & Medical Engineering",
+      "B.Tech. in Hydrogen Technology","B.Tech. in Electric Vehicle Technology"]},
+    {level:"Computer Applications & Sciences", items:[
+      "Bachelor of Computer Applications (BCA)","B.Sc. in Computer Science","B.Sc. in Information Technology",
+      "Master of Computer Applications (MCA)","M.Sc. in Computer Science","M.Sc. in Information Technology"]},
+    {level:"M.Tech — Postgraduate", items:[
+      "M.Tech. in Aerospace Engineering","M.Tech. in Automobile Engineering","M.Tech. in Chemical Engineering",
+      "M.Tech. in Electrical Engineering","M.Tech. in Electronics and Communication Engineering",
+      "M.Tech. in Mechanical Engineering","M.Tech. in Petroleum Engineering","M.Tech. in Nanotechnology",
+      "M.Tech. in Instrumentation and Control Engineering","M.Tech. in Civil Engineering",
+      "M.Tech. in Civil Engineering (Structural Engineering)","M.Tech. in Civil Engineering (Transportation Engineering)",
+      "M.Tech. in Civil Engineering (Construction Management Engineering)",
+      "M.Tech. in Civil Engineering (Geotechnical Engineering)","M.Tech. in Civil Engineering (Water Resources Engineering)",
+      "M.Tech. in Civil Engineering (Environmental Engineering)","M.Tech. in Mechatronics Engineering",
+      "M.Tech. in Biomedical Engineering","M.Tech. in Biotechnology","M.Tech. in Food Technology",
+      "M.Tech. in Agricultural Engineering","M.Tech. in Dairy Technology",
+      "M.Tech. in Computer Science and Engineering","M.Tech. in Information Technology",
+      "M.Tech. in Artificial Intelligence and Machine Learning","M.Tech. in Data Science and Engineering",
+      "M.Tech. in Cloud Computing and Virtualization Technology","M.Tech. in IoT, Cybernetics & Blockchain Technology",
+      "M.Tech. in Robotics and Automation","M.Tech. in Automation & Robotics",
+      "M.Tech. in Computer Science & Medical Engineering","M.Tech. in Electric Vehicle Technology",
+      "M.Tech. in Hydrogen Technology"]},
+    {level:"Postgraduate Sciences", items:[
+      "M.Sc. in Physics","M.Sc. in Chemistry","M.Sc. in Mathematics","M.Sc. in Statistics"]},
+    {level:"Diploma (Polytechnic)", items:[
+      "Diploma in Civil Engineering","Diploma in Electrical Engineering",
+      "Diploma in Electronics and Communication Engineering","Diploma in Mechanical Engineering",
+      "Diploma in Petroleum Engineering"]}
+  ]
+},
+{
+  key:"business", title:"Business Management",
+  img:"https://images.unsplash.com/photo-1556761175-b413da4baf72?w=640&q=70",
+  groups:[
+    {level:"Undergraduate", items:[
+      "Bachelor of Business Administration","BBA in International Business","BBA in Business Analytics",
+      "BBA in Marketing Management","BBA in Logistics Management","BBA in Information Technology",
+      "BBA in Human Resource Management","BBA in Hospital & Health Care Management","BBA in Pharmaceutical Management",
+      "BBA in Sales & Marketing Management","BBA in Finance Management","BBA in Event Management",
+      "BBA in Data Science & Business Analytics","BBA in Family Business, Entrepreneurship & Sustainability",
+      "BBA in AI & IoT","BBA in Digital Marketing",
+      "Bachelor of Commerce (B.Com)","B.Com. & M.Com. (with CA Preparation)","B.Com (Hons) Auditing & Taxation",
+      "B.Com (Hons) Management Accounting & International Finance","B.Com (Hons.) Banking & Insurance",
+      "B.Com (Hons.) Business Analytics"]},
+    {level:"Postgraduate", items:[
+      "M.Com.","MBA in International Business","MBA in Family Business & Entrepreneurship",
+      "MBA in Pharmaceutical Management","MBA in Marketing Management","MBA in Logistics Management",
+      "MBA in Information Technology","MBA in Human Resource Management","MBA in Hospital & Health Care Management",
+      "MBA in Data Science & Business Analytics","MBA in AI & IoT","MBA in Finance Management",
+      "MBA in Event Management","MBA in Digital Marketing","MBA in Agribusiness Management",
+      "MBA in Hospitality Management","MBA in Travel & Tourism Management","MBA in Sports Management",
+      "MBA in Media and Entertainment","MBA in Production and Operation Management","MBA in Hotel Management",
+      "MBA in Supply Chain Management","MBA in Project Management","MBA in Banking Management",
+      "MBA in Advertising Management & Public Relations"]},
+    {level:"Diploma", items:[
+      "PG Diploma in Business Management (PGDBM)","Diploma in Event Management","Diploma in Industrial Legislation",
+      "Diploma in Human Resource Management","Diploma in Labour Welfare Management","Diploma in Marketing Management"]}
+  ]
+},
+{
+  key:"law", title:"Law & Legal Affairs",
+  img:"https://images.unsplash.com/photo-1589829545856-d10d557cf95f?w=640&q=70",
+  groups:[
+    {level:"Undergraduate", items:["Bachelor of Laws (LL.B.)","B.A. LL.B.","BBA LL.B."]},
+    {level:"Postgraduate", items:[
+      "Master of Laws (Constitutional & Administrative Law)","Master of Laws (Criminal & Security Law)",
+      "Master of Law (Corporate & Commercial Law)","Master of Law (International Law)",
+      "Master of Law (IPR & Cyber Law)"]}
+  ]
+},
+{
+  key:"media", title:"Journalism & Mass Communication",
+  img:"https://images.unsplash.com/photo-1492724441997-5dc865305da7?w=640&q=70",
+  groups:[
+    {level:"Undergraduate", items:["BAJMC (Journalism & Mass Communication)"]},
+    {level:"Diploma", items:["PG Diploma in Broadcast Journalism (PGDBJ)"]}
+  ]
+},
+{
+  key:"sciences", title:"Applied & Life Sciences",
+  img:"https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=640&q=70",
+  groups:[
+    {level:"Undergraduate", items:[
+      "B.Sc. in Biochemistry","B.Sc. in Biotechnology","B.Sc. in Botany (Hons.)","B.Sc. in Environmental Science",
+      "B.Sc. in General Science","B.Sc. in Microbiology","B.Sc. in Zoology (Hons.)","B.Sc. in Biophysics",
+      "B.Sc. in Physics (Hons.)","B.Sc. in Chemistry (Hons.)","B.Sc. in Mathematics (Hons.)","B.Sc. in Statistics",
+      "B.Sc. in Food Technology"]},
+    {level:"Postgraduate", items:[
+      "M.Sc. in Biochemistry","M.Sc. in Biotechnology","M.Sc. in Botany","M.Sc. in Environmental Science",
+      "M.Sc. in Genetics","M.Sc. in Microbiology","M.Sc. in Zoology","M.Sc. in Bioinformatics","M.Sc. in Biophysics",
+      "M.Sc. in Medical Biotechnology","M.Sc. in Food Technology","M.Tech. in Biotechnology",
+      "M.Tech. in Food Technology","M.Tech. in Agricultural Engineering","M.Tech. in Dairy Technology"]}
+  ]
+},
+{
+  key:"arts", title:"Liberal Arts",
+  img:"https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=640&q=70",
+  groups:[
+    {level:"Undergraduate", items:[
+      "B.A. English","B.A. Economics","B.A. Geography","B.A. History","B.A. Political Science","B.A. Sociology",
+      "B.A. Psychology","B.A. Public Administration","B.A. French","B.A. Spanish","Bachelor of Social Work (BSW)",
+      "B.Sc. Economics","B.Sc. Geography","B.Sc. Geoinformatics","B.Sc. Statistics","B.Sc. in Clinical Psychology"]},
+    {level:"Postgraduate", items:[
+      "M.A. English","M.A. Economics","M.A. Geography","M.A. History","M.A. Political Science","M.A. Sociology",
+      "M.A. Psychology","M.A. Public Administration","M.Sc. Economics","M.Sc. Geography","M.Sc. Geoinformatics",
+      "M.Sc. in Clinical Psychology","Master of Social Work (MSW)"]}
+  ]
+},
+{
+  key:"design", title:"Fine Arts & Design",
+  img:"https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=640&q=70",
+  groups:[
+    {level:"Undergraduate", items:[
+      "Bachelor of Fine Arts","Bachelor of Visual Arts","Bachelor of Performing Arts",
+      "B.Design (Fashion)","B.Design (Textile)","B.Sc. Fashion Designing","B.Des / B.Sc Interior Design",
+      "B.Des / B.Sc Graphic Communication Design","B.Des / B.Sc UX/UI Design",
+      "B.Des. / B.Sc Animation & Game Design"]},
+    {level:"Postgraduate", items:[
+      "Master of Fine Arts","Master of Visual Arts","Master of Performing Arts",
+      "M.Sc / M.Des. Fashion Designing","M.Des. Interior Design","M.Des. Graphic Communication Design",
+      "M.Des. UX/UI Design","M.Des. Animation & Game Design"]}
+  ]
+},
+{
+  key:"education", title:"Education & Physical Education",
+  img:"https://images.unsplash.com/photo-1588072432836-e10032774350?w=640&q=70",
+  groups:[
+    {level:"Undergraduate", items:[
+      "Bachelor of Physical Education & Sports (BPES)","B.Sc. Physical Education","B.A. Physical Education",
+      "B.Lib. (Non-Attending Optional)"]},
+    {level:"Postgraduate", items:[
+      "Master of Physical Education & Sports (MPES)","M.Sc. Physical Education","M.A. Physical Education",
+      "M.Lib. (Non-Attending Optional)"]}
+  ]
+},
+{
+  key:"pharmacy", title:"Pharmacy",
+  img:"https://images.unsplash.com/photo-1576602976047-174e57a47881?w=640&q=70",
+  groups:[
+    {level:"Undergraduate", items:[
+      "Bachelor of Pharmacy (B.Pharm)","Doctor of Pharmacy (Pharm.D.)","Doctor of Pharmacy (Pharm.D.) (Post-Baccalaureate)"]},
+    {level:"Postgraduate", items:["Master of Pharmacy (Pharmaceutics)","Master of Pharmacy (Pharmacology)"]},
+    {level:"Diploma", items:["Diploma in Pharmacy (D.Pharm)"]}
+  ]
+},
+{
+  key:"dental", title:"Dental Sciences",
+  img:"https://images.unsplash.com/photo-1606811841689-23dfddce3e95?w=640&q=70",
+  groups:[
+    {level:"Undergraduate", items:["BDS (Bachelor of Dental Surgery)"]},
+    {level:"Postgraduate (MDS)", items:[
+      "MDS Oral & Maxillofacial Surgery","MDS Periodontics","MDS Prosthodontics & Crown & Bridge",
+      "MDS Paedodontics & Preventive Dentistry","MDS Orthodontics & Dentofacial Orthopaedics",
+      "MDS Conservative Dentistry & Endodontics","MDS Oral Pathology & Microbiology","MDS Oral Medicine & Radiology",
+      "MDS Public Health Dentistry"]},
+    {level:"Doctoral", items:["Ph.D. in Dentistry"]}
+  ]
+},
+{
+  key:"physio", title:"Physiotherapy & Occupational Therapy",
+  img:"https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=640&q=70",
+  groups:[
+    {level:"Undergraduate", items:["Bachelor of Physiotherapy (BPT)","Bachelor of Occupational Therapy (BOT)"]},
+    {level:"Postgraduate", items:[
+      "MPT in Musculoskeletal (Ortho.)","MPT in Neurology","MPT in Cardiopulmonary Disorders","MPT in Sports",
+      "MPT in Pediatrics","MPT in Obstetrics and Gynaecology","MPT in Community Based Rehabilitation"]}
+  ]
+},
+{
+  key:"hotel", title:"Hotel Management & Hospitality",
+  img:"https://images.unsplash.com/photo-1566073771259-6a8506099945?w=640&q=70",
+  groups:[
+    {level:"Undergraduate", items:[
+      "B.Sc. Hospitality & Hotel Administration","Bachelor in Hotel Management (BHM)","B.Sc. in Hotel Management",
+      "Bachelor of Hotel Management and Catering Technology"]},
+    {level:"Postgraduate", items:[
+      "M.Sc. Hospitality and Hotel Administration","Master of Hotel Management (MHM)","PG Diploma in Hotel Management"]},
+    {level:"Diploma", items:[
+      "Diploma in Hotel Management (3 Year)","Diploma in Hotel Management (5 Year)","Diploma in Hotel Management",
+      "Diploma in Food Production","Diploma in Bakery & Confectionary"]}
+  ]
+},
+{
+  key:"travel", title:"Travel & Tourism",
+  img:"https://images.unsplash.com/photo-1488646953014-85cb44e25828?w=640&q=70",
+  groups:[
+    {level:"Undergraduate", items:["Bachelor of Hospitality, Travel and Tourism Management"]},
+    {level:"Postgraduate", items:["Master of Hospitality, Travel and Tourism Management"]},
+    {level:"Diploma", items:["Diploma in Hospitality, Travel and Tourism Management"]}
+  ]
+},
+{
+  key:"aviation", title:"Aviation",
+  img:"https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=640&q=70",
+  groups:[
+    {level:"Undergraduate", items:["BBA in Aviation Management"]},
+    {level:"Postgraduate", items:["MBA in Aviation Management"]}
+  ]
+},
+{
+  key:"agri", title:"Agricultural Sciences",
+  img:"https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=640&q=70",
+  groups:[
+    {level:"Undergraduate", items:["B.Sc. (Hons.) Agriculture"]},
+    {level:"Postgraduate", items:[
+      "M.Sc. Agriculture (Agronomy)","M.Sc. Agriculture (Entomology)","M.Sc. Agriculture (Plant Pathology)",
+      "M.Sc. Agriculture (Soil Science)","M.Sc. Agriculture (Horticulture) Fruit Science"]}
+  ]
+},
+{
+  key:"forensic", title:"Forensic Sciences",
+  img:"https://images.unsplash.com/photo-1579154204601-01588f351e67?w=640&q=70",
+  groups:[
+    {level:"Undergraduate", items:["Bachelor of Forensic Science"]},
+    {level:"Postgraduate", items:[
+      "M.Sc. Forensic Sciences","M.Sc. Digital Forensics & Information Security","M.A. Criminology"]}
+  ]
+},
+{
+  key:"arch", title:"Architecture",
+  img:"https://images.unsplash.com/photo-1487958449943-2429e8be8625?w=640&q=70",
+  groups:[
+    {level:"Undergraduate", items:["Bachelor of Architecture (B.Arch)"]},
+    {level:"Diploma", items:["Diploma in Architectural Assistantship"]}
+  ]
+},
+{
+  key:"research", title:"Center for Research Studies",
+  img:"https://images.unsplash.com/photo-1532094349884-543bc11b234d?w=640&q=70",
+  groups:[
+    {level:"Ph.D. — Engineering & Computing", items:[
+      "Ph.D. in Computer Science","Ph.D. in Artificial Intelligence and Machine Learning",
+      "Ph.D. in Data Science Engineering","Ph.D. in Cloud Computing & Virtualization Engineering",
+      "Ph.D. in Automation & Robotics","Ph.D. in Electrical Vehicle Technology","Ph.D. in Hydrogen Technology",
+      "Ph.D. in Electrical Engineering","Ph.D. in Electronics Engineering","Ph.D. in Mechanical Engineering",
+      "Ph.D. in Aerospace Engineering","Ph.D. in Civil Engineering","Ph.D. in Petroleum Engineering",
+      "Ph.D. in Chemical Engineering","Ph.D. in Biomedical Engineering"]},
+    {level:"Ph.D. — Sciences & Agriculture", items:[
+      "Ph.D. in Physics","Ph.D. in Chemistry","Ph.D. in Mathematics","Ph.D. in Applied Sciences",
+      "Ph.D. in Biotechnology","Ph.D. in Environmental Science","Ph.D. in Food Technology",
+      "Ph.D. in Dairy Technology","Ph.D. in Agriculture Engineering"]},
+    {level:"Ph.D. — Health Sciences", items:["Ph.D. in Dentistry"]}
+  ]
+}
+];
+
+/* =========================================================
+   2. COURSE DETAILS (duration / fee / eligibility)
+   Rules run top to bottom — first match wins.
+   Edit the numbers here to match your actual partner colleges.
+   ========================================================= */
+const RULES = [
+[/^Ph\.?D/i,{d:"3–5 years (full-time)",g:"₹40,000 – ₹1,20,000 / year",p:"₹1.2 – ₹3 lakh / year",
+ e:"Master's degree in a relevant subject with at least 55% marks, plus the university's research entrance test (RET) and interview. UGC-NET / GATE / JRF holders are usually exempt from the written test."}],
+[/^MDS/i,{d:"3 years",g:"₹1.5 – ₹5 lakh / year",p:"₹6 – ₹25 lakh / year",
+ e:"BDS from a DCI-recognised college with completed 1-year rotatory internship, plus a valid NEET-MDS score. Admission is through state / All-India MDS counselling."}],
+[/^BDS/i,{d:"5 years (4 years + 1 year internship)",g:"₹50,000 – ₹1.5 lakh / year",p:"₹3 – ₹8 lakh / year",
+ e:"10+2 with Physics, Chemistry, Biology and English, minimum 50% aggregate (40% for SC/ST/OBC), plus a qualifying NEET-UG score. Minimum age 17 years."}],
+[/MBBS/i,{d:"5.5–6 years (including internship)",g:"₹3 – ₹6 lakh / year (state quota)",p:"₹12 – ₹25 lakh / year",
+ e:"10+2 with Physics, Chemistry, Biology and English, minimum 50% aggregate (40% for reserved categories), and a qualifying NEET-UG score."}],
+[/^B\.?Pharm|Bachelor of Pharmacy/i,{d:"4 years",g:"₹35,000 – ₹80,000 / year",p:"₹90,000 – ₹2 lakh / year",
+ e:"10+2 with Physics, Chemistry and Biology or Mathematics, minimum 45–50% marks. Admission through state CET or university merit."}],
+[/Pharm\.?D/i,{d:"6 years (5 years + 1 year internship)",g:"₹60,000 – ₹1.2 lakh / year",p:"₹1.5 – ₹3 lakh / year",
+ e:"10+2 with Physics, Chemistry and Biology/Maths with at least 50% marks. Post-Baccalaureate entry (3 years) is open to B.Pharm graduates."}],
+[/Master of Pharmacy|^M\.?Pharm/i,{d:"2 years",g:"₹60,000 – ₹1.2 lakh / year",p:"₹1.5 – ₹3 lakh / year",
+ e:"B.Pharm from a PCI-approved institute with at least 55% marks. GPAT score preferred and required for stipend-linked seats."}],
+[/Diploma in Pharmacy|D\.?Pharm/i,{d:"2 years + 500 hours practical training",g:"₹25,000 – ₹50,000 / year",p:"₹60,000 – ₹1.2 lakh / year",
+ e:"10+2 with Physics, Chemistry and Biology or Mathematics, minimum 45% marks."}],
+[/B\.?Sc\.? Nursing/i,{d:"4 years",g:"₹30,000 – ₹75,000 / year",p:"₹1 – ₹2.5 lakh / year",
+ e:"10+2 with Physics, Chemistry, Biology and English, minimum 45–50% aggregate. Minimum age 17 years; candidate must be medically fit as per INC norms."}],
+[/General Nursing/i,{d:"3 years (including internship)",g:"₹20,000 – ₹45,000 / year",p:"₹60,000 – ₹1.5 lakh / year",
+ e:"10+2 in any stream with at least 40–45% marks (Science preferred). Minimum age 17 years, as per Indian Nursing Council rules."}],
+[/^MPT|Master of Physiotherapy/i,{d:"2 years",g:"₹60,000 – ₹1.2 lakh / year",p:"₹1.5 – ₹3 lakh / year",
+ e:"BPT degree with completed internship and at least 50% marks. Some universities conduct their own entrance test."}],
+[/Bachelor of Physiotherapy|^BPT/i,{d:"4.5 years (4 years + 6 months internship)",g:"₹45,000 – ₹90,000 / year",p:"₹1.2 – ₹2.5 lakh / year",
+ e:"10+2 with Physics, Chemistry, Biology and English, minimum 50% aggregate."}],
+[/Occupational Therapy/i,{d:"4.5 years (4 years + 6 months internship)",g:"₹45,000 – ₹90,000 / year",p:"₹1.2 – ₹2.5 lakh / year",
+ e:"10+2 with Physics, Chemistry, Biology and English, minimum 50% aggregate."}],
+[/^M\.?Tech/i,{d:"2 years (4 semesters)",g:"₹50,000 – ₹1.2 lakh / year",p:"₹1.2 – ₹2.5 lakh / year",
+ e:"B.E./B.Tech in a relevant branch with at least 50–60% marks. A valid GATE score improves the seat and stipend chances; sponsored candidates may apply with work experience."}],
+[/^B\.?Tech/i,{d:"4 years (8 semesters)",g:"₹60,000 – ₹1.5 lakh / year",p:"₹1.2 – ₹3.5 lakh / year",
+ e:"10+2 with Physics, Chemistry / Computer Science and Mathematics, minimum 50% aggregate. Admission through JEE Main, CUET or the university's own entrance test. Lateral entry to the 2nd year is open to diploma holders."}],
+[/^B\.?Arch|Architecture \(B\.Arch\)/i,{d:"5 years",g:"₹70,000 – ₹1.5 lakh / year",p:"₹1.8 – ₹3.5 lakh / year",
+ e:"10+2 with Mathematics as a subject and at least 50% aggregate, plus a valid NATA or JEE Main Paper 2 score (mandatory under Council of Architecture rules)."}],
+[/Architectural Assistantship/i,{d:"3 years",g:"₹25,000 – ₹55,000 / year",p:"₹60,000 – ₹1.2 lakh / year",
+ e:"Passed class 10 (matriculation) with Mathematics and Science; some institutes admit 10+2 candidates directly into the 2nd year."}],
+[/^MCA|Master of Computer Applications/i,{d:"2 years",g:"₹50,000 – ₹1 lakh / year",p:"₹1.2 – ₹2.5 lakh / year",
+ e:"Bachelor's degree with Mathematics at 10+2 or graduation level, minimum 50% marks. NIMCET / state CET / CUET-PG scores are accepted where applicable."}],
+[/^BCA|Bachelor of Computer Applications/i,{d:"3 years",g:"₹35,000 – ₹70,000 / year",p:"₹80,000 – ₹1.8 lakh / year",
+ e:"10+2 in any stream with at least 45–50% marks; Mathematics or Computer Science preferred by most universities."}],
+[/LL\.?B/i,{d:"3 years (LL.B) / 5 years (integrated B.A. or BBA LL.B.)",g:"₹30,000 – ₹90,000 / year",p:"₹1 – ₹3 lakh / year",
+ e:"For the 5-year integrated course: 10+2 with at least 45% marks. For the 3-year LL.B: a bachelor's degree with at least 45% marks. CLAT / LSAT-India / university entrance is accepted."}],
+[/Master of Law|^LL\.?M/i,{d:"1–2 years",g:"₹40,000 – ₹90,000 / year",p:"₹1 – ₹2.5 lakh / year",
+ e:"LL.B. or an equivalent law degree with at least 50% marks. CLAT-PG or the university's entrance test is used for merit."}],
+[/^MBA|PG Diploma in Business Management/i,{d:"2 years (4 semesters)",g:"₹60,000 – ₹1.5 lakh / year",p:"₹2 – ₹6 lakh / year",
+ e:"Bachelor's degree in any discipline with at least 50% marks (45% for reserved categories). CAT, MAT, CMAT, XAT or the university's own test, followed by a group discussion and interview."}],
+[/^BBA|Bachelor of Business Administration/i,{d:"3 years (4 years with Hons.)",g:"₹40,000 – ₹90,000 / year",p:"₹1 – ₹2.5 lakh / year",
+ e:"10+2 in any stream with at least 45–50% marks. Some universities conduct an aptitude test and personal interview."}],
+[/^M\.?Com/i,{d:"2 years",g:"₹20,000 – ₹45,000 / year",p:"₹60,000 – ₹1.2 lakh / year",
+ e:"B.Com or an equivalent bachelor's degree with at least 50% marks."}],
+[/B\.?Com/i,{d:"3 years (4 years for Hons. / integrated CA track)",g:"₹18,000 – ₹45,000 / year",p:"₹50,000 – ₹1.5 lakh / year",
+ e:"10+2 with Commerce, Arts or Science and at least 45–50% marks. Mathematics or Accountancy is preferred for the Hons. and analytics streams."}],
+[/Hotel Management|Hospitality|Hotel Administration|Catering Technology|Food Production|Bakery/i,
+ {d:"3–4 years for degrees, 1–3 years for diplomas",g:"₹40,000 – ₹90,000 / year",p:"₹1.2 – ₹3 lakh / year",
+ e:"10+2 in any stream with at least 45–50% marks and English as a subject. NCHMCT JEE or the university's own test is used where applicable; PG programmes need a relevant bachelor's degree."}],
+[/Travel and Tourism|Travel & Tourism/i,{d:"3 years (UG) / 2 years (PG) / 1 year (Diploma)",g:"₹35,000 – ₹75,000 / year",p:"₹90,000 – ₹2 lakh / year",
+ e:"10+2 in any stream with at least 45% marks for the bachelor's programme; a relevant bachelor's degree for the master's programme."}],
+[/Aviation/i,{d:"3 years (BBA) / 2 years (MBA)",g:"₹60,000 – ₹1.2 lakh / year",p:"₹1.8 – ₹4 lakh / year",
+ e:"10+2 in any stream with at least 50% marks and comfortable English for the BBA; any bachelor's degree with 50% marks for the MBA."}],
+[/BAJMC|Journalism|Broadcast/i,{d:"3 years (BAJMC) / 1 year (PG Diploma)",g:"₹35,000 – ₹75,000 / year",p:"₹90,000 – ₹2.2 lakh / year",
+ e:"10+2 in any stream with at least 45–50% marks for the bachelor's programme; a bachelor's degree in any discipline for the PG diploma."}],
+[/Forensic|Criminology/i,{d:"3 years (UG) / 2 years (PG)",g:"₹45,000 – ₹90,000 / year",p:"₹1.2 – ₹2.5 lakh / year",
+ e:"10+2 with Science for the bachelor's programme; B.Sc. in Forensic Science, Chemistry, Zoology, Biotechnology or an allied subject with at least 50% marks for the master's programme."}],
+[/Agriculture|Agronomy|Horticulture|Soil Science|Plant Pathology|Entomology/i,
+ {d:"4 years (B.Sc. Hons.) / 2 years (M.Sc.)",g:"₹40,000 – ₹90,000 / year",p:"₹1 – ₹2.5 lakh / year",
+ e:"10+2 with Physics, Chemistry, Biology / Agriculture / Mathematics and at least 50% marks; ICAR-UG or state agriculture CET for government seats. The master's programme needs a B.Sc. Agriculture degree."}],
+[/Fashion|Interior Design|Graphic Communication|UX\/UI|Animation|Game Design|B\.?Des|M\.?Des/i,
+ {d:"4 years (B.Des) / 3 years (B.Sc.) / 2 years (PG)",g:"₹50,000 – ₹1.2 lakh / year",p:"₹1.5 – ₹4 lakh / year",
+ e:"10+2 in any stream with at least 45–50% marks. NID / NIFT / UCEED / university design aptitude test plus a portfolio review for most design schools."}],
+[/Fine Arts|Visual Arts|Performing Arts/i,{d:"4 years (Bachelor) / 2 years (Master)",g:"₹30,000 – ₹70,000 / year",p:"₹80,000 – ₹2 lakh / year",
+ e:"10+2 in any stream with at least 45% marks and a practical aptitude test or portfolio; the master's programme needs a relevant bachelor's degree."}],
+[/Physical Education|BPES|MPES/i,{d:"3–4 years (UG) / 2 years (PG)",g:"₹30,000 – ₹65,000 / year",p:"₹70,000 – ₹1.8 lakh / year",
+ e:"10+2 with at least 45% marks plus a physical fitness test; sports achievement at district level or above earns weightage. The master's programme needs a relevant bachelor's degree."}],
+[/Lib\./i,{d:"1 year",g:"₹15,000 – ₹35,000 / year",p:"₹40,000 – ₹80,000 / year",
+ e:"A bachelor's degree in any discipline with at least 50% marks for B.Lib.; B.Lib. for M.Lib. Non-attending mode is available for working candidates."}],
+[/Social Work|MSW|BSW/i,{d:"3 years (BSW) / 2 years (MSW)",g:"₹25,000 – ₹55,000 / year",p:"₹70,000 – ₹1.8 lakh / year",
+ e:"10+2 in any stream for BSW; any bachelor's degree with at least 50% marks for MSW. Field-work placement is compulsory."}],
+[/Clinical Psychology/i,{d:"3 years (B.Sc.) / 2 years (M.Sc.)",g:"₹40,000 – ₹85,000 / year",p:"₹1.2 – ₹2.5 lakh / year",
+ e:"10+2 with Science preferred for the bachelor's programme; a bachelor's degree in Psychology with at least 55% marks for the master's programme. RCI-approved M.Phil is a separate route for clinical practice."}],
+[/Clinical Research|Public Health|Nutrition and Dietetics/i,
+ {d:"3 years (UG) / 2 years (PG)",g:"₹45,000 – ₹95,000 / year",p:"₹1.2 – ₹3 lakh / year",
+ e:"10+2 with Physics, Chemistry and Biology for the bachelor's programme; a relevant science or health-science bachelor's degree with at least 50% marks for the master's programme."}],
+[/Master of Optometry|Optometry/i,{d:"2 years",g:"₹60,000 – ₹1.1 lakh / year",p:"₹1.5 – ₹3 lakh / year",
+ e:"B.Optom or B.Sc. Optometry with at least 50% marks."}],
+[/^Master of Science in Medical|^M\.?Sc\.? in Medical|Blood Transfusion|Perfusion|Anesthesia|Intensive Care|Respiratory Therapy|Radiotherapy Technology|Emergency Medical Technology|Imaging Technology|Dialysis Technology|Operation Theatre Technology|Ophthalmology & Optometry/i,
+ {d:"2 years",g:"₹50,000 – ₹1.2 lakh / year",p:"₹1.5 – ₹3.5 lakh / year",
+ e:"A relevant allied-health bachelor's degree (B.Sc. MLT, BMIT, BOTT, B.Sc. Nursing or equivalent) with at least 50% marks and completed internship."}],
+[/^Bachelor of Medical Laboratory|^Bachelor of Radiation|^Bachelor of Ophthalmic|^Bachelor in |Medical Laboratory Technology/i,
+ {d:"3–4 years (including internship)",g:"₹40,000 – ₹85,000 / year",p:"₹1 – ₹2.5 lakh / year",
+ e:"10+2 with Physics, Chemistry and Biology, minimum 45–50% aggregate. Candidate should be medically fit for clinical postings."}],
+[/^Diploma in (Medical Lab|Radiation|E\.?C\.?G|Ophthalmic|Operation Theat|Dialysis|Blood Bank|Cath)/i,
+ {d:"2 years (including practical training)",g:"₹25,000 – ₹50,000 / year",p:"₹60,000 – ₹1.2 lakh / year",
+ e:"10+2 with Physics, Chemistry and Biology, minimum 40–45% marks."}],
+[/^Diploma in (Civil|Electrical|Electronics|Mechanical|Petroleum)/i,
+ {d:"3 years (6 semesters)",g:"₹15,000 – ₹35,000 / year",p:"₹45,000 – ₹90,000 / year",
+ e:"Passed class 10 with Mathematics and Science, minimum 35–45% marks. Lateral entry into B.Tech 2nd year is available after this diploma."}],
+[/^Diploma|^PG Diploma/i,{d:"1–2 years",g:"₹20,000 – ₹45,000 / year",p:"₹50,000 – ₹1.2 lakh / year",
+ e:"10+2 for a diploma; a bachelor's degree in any discipline for a PG diploma. Minimum 45% marks in the qualifying examination."}],
+[/^M\.?A\.?[ .]|^M\.?A\.? /i,{d:"2 years",g:"₹18,000 – ₹45,000 / year",p:"₹50,000 – ₹1.2 lakh / year",
+ e:"A bachelor's degree in the relevant or an allied subject with at least 45–50% marks. CUET-PG is accepted by several universities."}],
+[/^M\.?Sc/i,{d:"2 years",g:"₹25,000 – ₹60,000 / year",p:"₹70,000 – ₹1.8 lakh / year",
+ e:"B.Sc. in the relevant or an allied subject with at least 50% marks. CUET-PG or the university's entrance test is used for merit."}],
+[/^B\.?A\.?[ .]/i,{d:"3 years (4 years with Hons. under NEP)",g:"₹15,000 – ₹40,000 / year",p:"₹45,000 – ₹1.2 lakh / year",
+ e:"10+2 in any stream with at least 45–50% marks. CUET-UG is accepted by central and several state universities."}],
+[/^B\.?Sc/i,{d:"3 years (4 years with Hons. under NEP)",g:"₹20,000 – ₹50,000 / year",p:"₹60,000 – ₹1.5 lakh / year",
+ e:"10+2 with Science (Physics, Chemistry, Biology or Mathematics) and at least 45–50% marks in the relevant subjects."}]
+];
+
+const FALLBACK = {d:"As per university academic calendar",g:"₹30,000 – ₹80,000 / year",p:"₹80,000 – ₹2 lakh / year",
+ e:"Meet the minimum qualifying examination requirement for this level with at least 45–50% marks. Talk to our counsellor for the exact cut-off at your preferred university."};
+
+function meta(name){
+  for (const [re, m] of RULES) if (re.test(name)) return m;
+  return FALLBACK;
+}
+
+/* =========================================================
+   3. MBBS ABROAD — countries & universities
+   ========================================================= */
+const COUNTRIES = [
+{key:"bd", name:"Bangladesh", flag:"https://flagcdn.com/w640/bd.png",
+ note:"Same climate and food as India, and the curriculum is close to the Indian syllabus. SAARC-quota seats are allotted through the Bangladesh Ministry of Health.",
+ unis:[
+  {n:"Dhaka National Medical College", c:"Dhaka", d:"5 years + 1 year internship", m:"English", f:"US$ 45,000 – 55,000 (full course)"},
+  {n:"Bangladesh Medical College", c:"Dhanmondi, Dhaka", d:"5 years + 1 year internship", m:"English", f:"US$ 50,000 – 60,000 (full course)"},
+  {n:"Holy Family Red Crescent Medical College", c:"Dhaka", d:"5 years + 1 year internship", m:"English", f:"US$ 48,000 – 58,000 (full course)"},
+  {n:"Popular Medical College", c:"Dhaka", d:"5 years + 1 year internship", m:"English", f:"US$ 45,000 – 55,000 (full course)"},
+  {n:"East West Medical College", c:"Dhaka", d:"5 years + 1 year internship", m:"English", f:"US$ 42,000 – 52,000 (full course)"},
+  {n:"Khwaja Yunus Ali Medical College", c:"Sirajganj", d:"5 years + 1 year internship", m:"English", f:"US$ 40,000 – 50,000 (full course)"}
+ ]},
+{key:"kz", name:"Kazakhstan", flag:"https://flagcdn.com/w640/kz.png",
+ note:"Low tuition, Indian mess facilities on most campuses and direct flights from Delhi. Winters are severe, so plan the warm clothing budget.",
+ unis:[
+  {n:"Kazakh National Medical University (Asfendiyarov)", c:"Almaty", d:"5 years + internship", m:"English", f:"₹3.5 – 4.5 lakh / year"},
+  {n:"Astana Medical University", c:"Astana", d:"5 years + internship", m:"English", f:"₹3 – 4 lakh / year"},
+  {n:"Semey Medical University", c:"Semey", d:"5 years + internship", m:"English", f:"₹2.8 – 3.8 lakh / year"},
+  {n:"South Kazakhstan Medical Academy", c:"Shymkent", d:"5 years + internship", m:"English", f:"₹2.8 – 3.6 lakh / year"},
+  {n:"Al-Farabi Kazakh National University", c:"Almaty", d:"5 years + internship", m:"English", f:"₹3.5 – 4.5 lakh / year"},
+  {n:"Karaganda Medical University", c:"Karaganda", d:"5 years + internship", m:"English", f:"₹3 – 4 lakh / year"}
+ ]},
+{key:"kg", name:"Kyrgyzstan", flag:"https://flagcdn.com/w640/kg.png",
+ note:"The lowest total cost among the popular destinations, with large Indian student communities and halal food widely available.",
+ unis:[
+  {n:"Kyrgyz State Medical Academy", c:"Bishkek", d:"5 years + internship", m:"English", f:"₹3 – 3.8 lakh / year"},
+  {n:"Osh State University", c:"Osh", d:"5 years + internship", m:"English", f:"₹2.5 – 3.2 lakh / year"},
+  {n:"International School of Medicine (IUK)", c:"Bishkek", d:"5 years + internship", m:"English", f:"₹2.8 – 3.5 lakh / year"},
+  {n:"Jalal-Abad State University", c:"Jalal-Abad", d:"5 years + internship", m:"English", f:"₹2.4 – 3 lakh / year"},
+  {n:"Asian Medical Institute", c:"Kant", d:"5 years + internship", m:"English", f:"₹2.5 – 3.2 lakh / year"},
+  {n:"Salymbekov University", c:"Bishkek", d:"5 years + internship", m:"English", f:"₹2.6 – 3.3 lakh / year"}
+ ]},
+{key:"ru", name:"Russia", flag:"https://flagcdn.com/w640/ru.png",
+ note:"Long-established government universities with hospital-attached training. Check whether your chosen batch is taught in English for all six years.",
+ unis:[
+  {n:"Kazan Federal University", c:"Kazan", d:"6 years", m:"English", f:"₹4.5 – 6 lakh / year"},
+  {n:"Crimea Federal University", c:"Simferopol", d:"6 years", m:"English", f:"₹3.5 – 4.5 lakh / year"},
+  {n:"Perm State Medical University", c:"Perm", d:"6 years", m:"English", f:"₹3.5 – 4.5 lakh / year"},
+  {n:"Bashkir State Medical University", c:"Ufa", d:"6 years", m:"English", f:"₹3.8 – 4.8 lakh / year"},
+  {n:"Orenburg State Medical University", c:"Orenburg", d:"6 years", m:"English", f:"₹3.5 – 4.5 lakh / year"},
+  {n:"Kabardino-Balkarian State University", c:"Nalchik", d:"6 years", m:"English", f:"₹3 – 4 lakh / year"}
+ ]},
+{key:"uz", name:"Uzbekistan", flag:"https://flagcdn.com/w640/uz.png",
+ note:"Close to India by flight, low living costs and a growing number of English-medium batches for international students.",
+ unis:[
+  {n:"Tashkent Medical Academy", c:"Tashkent", d:"6 years", m:"English", f:"₹3.5 – 4.5 lakh / year"},
+  {n:"Samarkand State Medical University", c:"Samarkand", d:"6 years", m:"English", f:"₹3 – 4 lakh / year"},
+  {n:"Andijan State Medical Institute", c:"Andijan", d:"6 years", m:"English", f:"₹2.8 – 3.6 lakh / year"},
+  {n:"Bukhara State Medical Institute", c:"Bukhara", d:"6 years", m:"English", f:"₹2.8 – 3.6 lakh / year"},
+  {n:"Fergana Medical Institute of Public Health", c:"Fergana", d:"6 years", m:"English", f:"₹2.6 – 3.4 lakh / year"}
+ ]},
+{key:"ge", name:"Georgia", flag:"https://flagcdn.com/w640/ge.png",
+ note:"European-style credit system and a straightforward student visa, but tuition and living costs are higher than in Central Asia.",
+ unis:[
+  {n:"Tbilisi State Medical University", c:"Tbilisi", d:"6 years", m:"English", f:"US$ 8,000 – 9,000 / year"},
+  {n:"David Tvildiani Medical University", c:"Tbilisi", d:"6 years", m:"English", f:"US$ 8,000 – 10,000 / year"},
+  {n:"Batumi Shota Rustaveli State University", c:"Batumi", d:"6 years", m:"English", f:"US$ 5,000 – 7,000 / year"},
+  {n:"Caucasus International University", c:"Tbilisi", d:"6 years", m:"English", f:"US$ 5,500 – 7,500 / year"},
+  {n:"Georgian National University SEU", c:"Tbilisi", d:"6 years", m:"English", f:"US$ 5,000 – 7,000 / year"}
+ ]},
+{key:"cn", name:"China", flag:"https://flagcdn.com/w640/cn.png",
+ note:"Large teaching hospitals and strong infrastructure. Chinese language classes run alongside the English MBBS batch because ward rounds need them.",
+ unis:[
+  {n:"Jiangsu University", c:"Zhenjiang", d:"6 years (5 + 1 internship)", m:"English", f:"¥30,000 – 38,000 / year"},
+  {n:"Nanjing Medical University", c:"Nanjing", d:"6 years", m:"English", f:"¥38,000 – 45,000 / year"},
+  {n:"China Medical University", c:"Shenyang", d:"6 years", m:"English", f:"¥40,000 – 50,000 / year"},
+  {n:"Wenzhou Medical University", c:"Wenzhou", d:"6 years", m:"English", f:"¥35,000 – 42,000 / year"},
+  {n:"Xuzhou Medical University", c:"Xuzhou", d:"6 years", m:"English", f:"¥30,000 – 36,000 / year"}
+ ]},
+{key:"am", name:"Armenia", flag:"https://flagcdn.com/w640/am.png",
+ note:"Small, safe cities with a reasonable cost of living and English-medium teaching throughout the programme.",
+ unis:[
+  {n:"Yerevan State Medical University", c:"Yerevan", d:"6 years", m:"English", f:"US$ 4,500 – 6,000 / year"},
+  {n:"Saint Teresa Medical University", c:"Yerevan", d:"6 years", m:"English", f:"US$ 3,500 – 4,500 / year"},
+  {n:"University of Traditional Medicine", c:"Yerevan", d:"6 years", m:"English", f:"US$ 3,500 – 4,500 / year"},
+  {n:"Armenian Medical Institute", c:"Yerevan", d:"6 years", m:"English", f:"US$ 3,200 – 4,200 / year"},
+  {n:"Yerevan Haybusak University", c:"Yerevan", d:"6 years", m:"English", f:"US$ 3,500 – 4,500 / year"}
+ ]},
+{key:"ir", name:"Iran", flag:"https://flagcdn.com/w640/ir.png",
+ note:"Strong government medical universities at a low cost. Seats for Indian students are limited, so start the paperwork early.",
+ unis:[
+  {n:"Tehran University of Medical Sciences", c:"Tehran", d:"7 years (including internship)", m:"English / Persian", f:"US$ 4,000 – 6,000 / year"},
+  {n:"Shahid Beheshti University of Medical Sciences", c:"Tehran", d:"7 years", m:"English / Persian", f:"US$ 4,000 – 5,500 / year"},
+  {n:"Iran University of Medical Sciences", c:"Tehran", d:"7 years", m:"English / Persian", f:"US$ 3,500 – 5,000 / year"},
+  {n:"Shiraz University of Medical Sciences", c:"Shiraz", d:"7 years", m:"English / Persian", f:"US$ 3,500 – 5,000 / year"},
+  {n:"Mashhad University of Medical Sciences", c:"Mashhad", d:"7 years", m:"English / Persian", f:"US$ 3,500 – 5,000 / year"}
+ ]}
+];
+
+const MBBS_ELIG = "10+2 with Physics, Chemistry, Biology and English, minimum 50% aggregate (40% for reserved categories), a qualifying NEET-UG score (mandatory for practising in India), and age 17 years or above on 31 December of the admission year.";
+
+/* =========================================================
+   4. RENDER CARDS
+   ========================================================= */
+function countCourses(cat){ return cat.groups.reduce((n,g)=>n+g.items.length,0); }
+
+document.getElementById("courseScroll").innerHTML = CATALOG.map(c=>`
+  <div class="card">
+    <img src="${c.img}" alt="${c.title}" loading="lazy">
+    <div class="card-content">
+      <div>
+        <h3>${c.title}</h3>
+        <span class="count">${countCourses(c)} programmes</span>
+      </div>
+      <button onclick="openCategory('${c.key}')">View Courses</button>
+    </div>
+  </div>`).join("");
+
+document.getElementById("mbbsScroll").innerHTML = COUNTRIES.map(c=>`
+  <div class="card">
+    <img src="${c.flag}" alt="${c.name}" loading="lazy">
+    <div class="card-content">
+      <div>
+        <h3>${c.name}</h3>
+        <span class="count">${c.unis.length} universities</span>
+      </div>
+      <button onclick="openCountry('${c.key}')">View Universities</button>
+    </div>
+  </div>`).join("");
+
+// if an image fails to load, leave the soft blue panel in its place
+document.querySelectorAll(".card img").forEach(img => {
+  img.addEventListener("error", function(){ this.style.visibility = "hidden"; });
+});
+
+/* =========================================================
+   5. SHEET / MODAL
+   ========================================================= */
+const overlay = document.getElementById("overlay");
+const sheetTitle = document.getElementById("sheetTitle");
+const sheetSub = document.getElementById("sheetSub");
+const sheetBody = document.getElementById("sheetBody");
+
+function showSheet(title, sub, html){
+  sheetTitle.textContent = title;
+  sheetSub.textContent = sub;
+  sheetBody.innerHTML = html;
+  sheetBody.scrollTop = 0;
+  overlay.classList.add("open");
+  document.body.style.overflow = "hidden";
+}
+function closeSheet(){
+  overlay.classList.remove("open");
+  document.body.style.overflow = "";
+}
+document.addEventListener("keydown", e => { if(e.key === "Escape") closeSheet(); });
+
+function esc(s){ return s.replace(/'/g,"\\'").replace(/"/g,"&quot;"); }
+
+function courseBlock(name){
+  const m = meta(name);
+  return `
+  <div class="course">
+    <button class="course-head" onclick="this.parentNode.classList.toggle('open')">
+      <span>${name}</span><span class="chev">▾</span>
+    </button>
+    <div class="course-body">
+      <div class="facts">
+        <div class="fact"><div class="k">Course duration</div><div class="v">${m.d}</div></div>
+        <div class="fact"><div class="k">Approx. government college fee</div><div class="v">${m.g}</div></div>
+        <div class="fact"><div class="k">Approx. private college fee</div><div class="v">${m.p}</div></div>
+        <div class="fact"><div class="k">Level</div><div class="v">${levelOf(name)}</div></div>
+      </div>
+      <div class="elig"><div class="k">Eligibility</div>${m.e}</div>
+      <div class="applyLine">
+        <button onclick="openApply('${esc(name)}')">Apply for this course</button>
+        <span>Fees are indicative and vary by university, state and category.</span>
+      </div>
+    </div>
+  </div>`;
+}
+
+function levelOf(n){
+  if(/^Ph\.?D/i.test(n)) return "Doctoral";
+  if(/^Diploma/i.test(n)) return "Diploma";
+  if(/^PG Diploma/i.test(n)) return "PG Diploma";
+  if(/^(M\.|MBA|MCA|MDS|MPT|MSW|Master|MPES)/i.test(n)) return "Postgraduate";
+  return "Undergraduate";
+}
+
+function openCategory(key){
+  const cat = CATALOG.find(c=>c.key===key);
+  const body = `
+    <input class="searchbar" id="courseSearch" placeholder="Search inside ${cat.title}…" oninput="filterCourses()">
+    <div id="courseList">
+      ${cat.groups.map(g=>`
+        <div class="level">${g.level}</div>
+        ${g.items.map(courseBlock).join("")}
+      `).join("")}
+    </div>
+    <p class="notice">Fees shown are approximate annual ranges collected from partner colleges and public fee notifications; government-quota fees depend on state counselling and category. Confirm the final structure with our counsellor before you pay anything.</p>`;
+  showSheet(cat.title, countCourses(cat) + " programmes — tap any course for duration, fees and eligibility", body);
+}
+
+function filterCourses(){
+  const q = document.getElementById("courseSearch").value.toLowerCase().trim();
+  const list = document.getElementById("courseList");
+  list.querySelectorAll(".course").forEach(c=>{
+    const t = c.querySelector(".course-head span").textContent.toLowerCase();
+    c.style.display = t.includes(q) ? "" : "none";
+  });
+  list.querySelectorAll(".level").forEach(l=>{
+    let n = l.nextElementSibling, any = false;
+    while(n && n.classList.contains("course")){ if(n.style.display !== "none") any = true; n = n.nextElementSibling; }
+    l.style.display = any ? "" : "none";
+  });
+}
+
+function openCountry(key){
+  const c = COUNTRIES.find(x=>x.key===key);
+  const body = `
+    <p style="margin:0 0 18px;font-size:14px;line-height:1.6;color:#444">${c.note}</p>
+    ${c.unis.map(u=>`
+      <div class="uni">
+        <h4>${u.n}</h4>
+        <div class="place">${u.c}, ${c.name}</div>
+        <div class="facts">
+          <div class="fact"><div class="k">Course duration</div><div class="v">${u.d}</div></div>
+          <div class="fact"><div class="k">Medium of teaching</div><div class="v">${u.m}</div></div>
+          <div class="fact"><div class="k">Approx. tuition fee</div><div class="v">${u.f}</div></div>
+          <div class="fact"><div class="k">Hostel & food</div><div class="v">₹1.2 – ₹2.5 lakh / year</div></div>
+        </div>
+        <div class="elig" style="margin-top:10px"><div class="k">Eligibility</div>${MBBS_ELIG}</div>
+        <div class="applyLine">
+          <button onclick="openApply('MBBS Abroad — ${esc(c.name)} (${esc(u.n)})')">Apply for this university</button>
+        </div>
+      </div>`).join("")}
+    <p class="notice">Tuition figures are indicative and change every intake. Before you commit, check that the university is currently listed by the National Medical Commission and in the World Directory of Medical Schools, and remember that FMGE / NExT clearance is required to practise in India.</p>`;
+  showSheet("MBBS in " + c.name, c.unis.length + " partner universities", body);
+}
+
+/* =========================================================
+   6. APPLY FORM
+   ========================================================= */
+const STATES = ["Andhra Pradesh","Arunachal Pradesh","Assam","Bihar","Chandigarh","Chhattisgarh","Delhi","Goa","Gujarat","Haryana","Himachal Pradesh","Jammu & Kashmir","Jharkhand","Karnataka","Kerala","Ladakh","Madhya Pradesh","Maharashtra","Manipur","Meghalaya","Mizoram","Nagaland","Odisha","Puducherry","Punjab","Rajasthan","Sikkim","Tamil Nadu","Telangana","Tripura","Uttar Pradesh","Uttarakhand","West Bengal"];
+
+function allCourseOptions(){
+  let html = "";
+  html += `<optgroup label="MBBS Abroad">` +
+    COUNTRIES.map(c=>`<option>MBBS Abroad — ${c.name}</option>`).join("") + `</optgroup>`;
+  CATALOG.forEach(cat=>{
+    html += `<optgroup label="${cat.title}">` +
+      cat.groups.flatMap(g=>g.items).map(i=>`<option>${i}</option>`).join("") + `</optgroup>`;
+  });
+  return html;
+}
+
+function openApply(prefill){
+  const body = `
+    <div id="formWrap">
+      <div class="field">
+        <label for="f_name">Candidate's full name</label>
+        <input id="f_name" placeholder="As written on the class 10 certificate">
+        <div class="err">Enter the candidate's name.</div>
+      </div>
+      <div class="grid2">
+        <div class="field">
+          <label for="f_father">Father's name</label>
+          <input id="f_father" placeholder="Father's full name">
+          <div class="err">Enter the father's name.</div>
+        </div>
+        <div class="field">
+          <label for="f_mother">Mother's name</label>
+          <input id="f_mother" placeholder="Mother's full name">
+          <div class="err">Enter the mother's name.</div>
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="field">
+          <label for="f_phone">Phone number</label>
+          <input id="f_phone" inputmode="numeric" maxlength="10" placeholder="10-digit mobile number">
+          <div class="err">Enter a 10-digit mobile number.</div>
+        </div>
+        <div class="field">
+          <label for="f_email">Email ID</label>
+          <input id="f_email" type="email" placeholder="name@example.com">
+          <div class="err">Enter a valid email address.</div>
+        </div>
+      </div>
+      <div class="field">
+        <label for="f_course">Course applying for</label>
+        <select id="f_course" onchange="togglePref()">
+          <option value="">Select a course</option>
+          ${allCourseOptions()}
+        </select>
+        <div class="err">Choose the course you want to apply for.</div>
+      </div>
+
+      <div class="prefBox" id="prefBox">
+        <div class="title" id="prefTitle">Preferred state — give us three, in order</div>
+        <div class="field">
+          <label for="f_p1">First preference</label>
+          <select id="f_p1"></select>
+          <div class="err">Choose your first preference.</div>
+        </div>
+        <div class="field">
+          <label for="f_p2">Second preference</label>
+          <select id="f_p2"></select>
+        </div>
+        <div class="field">
+          <label for="f_p3">Third preference</label>
+          <select id="f_p3"></select>
+        </div>
+      </div>
+
+      <button class="submitBtn" onclick="submitApply()">Send my application</button>
+      <p class="notice">We use these details only to call you back about admissions. Nothing is shared with a third party without your consent.</p>
+    </div>`;
+  showSheet("Apply Now", "Takes about a minute. A counsellor calls you back within 24 hours.", body);
+  if(prefill) setCourse(prefill);
+  togglePref();
+}
+
+function setCourse(name){
+  const sel = document.getElementById("f_course");
+  let found = [...sel.options].find(o => o.value === name);
+  if(!found){
+    const og = document.createElement("optgroup");
+    og.label = "Selected";
+    const op = document.createElement("option");
+    op.textContent = name;
+    og.appendChild(op);
+    sel.insertBefore(og, sel.children[1]);
+    found = op;
+  }
+  sel.value = found.value;
+}
+
+function isMbbs(){ return /^MBBS Abroad/i.test(document.getElementById("f_course").value); }
+
+function togglePref(){
+  const mbbs = isMbbs();
+  document.getElementById("prefTitle").textContent = mbbs
+    ? "Preferred country — give us three, in order"
+    : "Preferred state — give us three, in order";
+  const opts = mbbs ? COUNTRIES.map(c=>c.name) : STATES;
+  ["f_p1","f_p2","f_p3"].forEach((id,i)=>{
+    const s = document.getElementById(id);
+    const old = s.value;
+    s.innerHTML = `<option value="">${i===0 ? "Select" : "Select (optional)"}</option>` +
+      opts.map(o=>`<option>${o}</option>`).join("");
+    if(opts.includes(old)) s.value = old;
+  });
+}
+
+function bad(id, on){ document.getElementById(id).closest(".field").classList.toggle("bad", on); }
+
+function submitApply(){
+  const v = id => document.getElementById(id).value.trim();
+  let ok = true;
+  const checks = [
+    ["f_name", v("f_name").length >= 3],
+    ["f_father", v("f_father").length >= 3],
+    ["f_mother", v("f_mother").length >= 3],
+    ["f_phone", /^[6-9]\d{9}$/.test(v("f_phone"))],
+    ["f_email", /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v("f_email"))],
+    ["f_course", v("f_course") !== ""],
+    ["f_p1", v("f_p1") !== ""]
+  ];
+  checks.forEach(([id, good]) => { bad(id, !good); if(!good) ok = false; });
+  if(!ok){
+    document.querySelector("#formWrap .field.bad input, #formWrap .field.bad select").focus();
+    return;
+  }
+
+  const prefLabel = isMbbs() ? "Preferred countries" : "Preferred states";
+  const prefs = [v("f_p1"), v("f_p2"), v("f_p3")].filter(Boolean).join(", ");
+  const data = {
+    name: v("f_name"), father: v("f_father"), mother: v("f_mother"),
+    phone: v("f_phone"), email: v("f_email"), course: v("f_course"), prefs, prefLabel
+  };
+
+  /* ---- Hook your backend here ----
+     Example with Formspree / Google Apps Script:
+     fetch("https://formspree.io/f/YOUR_ID", {
+       method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify(data)
+     });
+  --------------------------------- */
+  console.log("Application submitted:", data);
+
+  const text = `New admission enquiry%0A%0AName: ${encodeURIComponent(data.name)}%0AFather: ${encodeURIComponent(data.father)}%0AMother: ${encodeURIComponent(data.mother)}%0APhone: ${data.phone}%0AEmail: ${encodeURIComponent(data.email)}%0ACourse: ${encodeURIComponent(data.course)}%0A${encodeURIComponent(prefLabel)}: ${encodeURIComponent(prefs)}`;
+
+  sheetTitle.textContent = "Application sent";
+  sheetSub.textContent = "Reference saved. Keep your phone reachable.";
+  sheetBody.innerHTML = `
+    <div class="done">
+      <div class="tick">✓</div>
+      <h4>Thanks, ${data.name.split(" ")[0]}</h4>
+      <p>A counsellor will call ${data.phone} within 24 hours with your shortlist.</p>
+      <div class="summary">
+        <b>Name:</b> ${data.name}<br>
+        <b>Father's name:</b> ${data.father}<br>
+        <b>Mother's name:</b> ${data.mother}<br>
+        <b>Phone:</b> ${data.phone}<br>
+        <b>Email:</b> ${data.email}<br>
+        <b>Course:</b> ${data.course}<br>
+        <b>${prefLabel}:</b> ${prefs}
+      </div>
+      <div class="doneBtns">
+        <a class="primary" href="https://wa.me/919682533249?text=${text}" target="_blank" rel="noopener">Send on WhatsApp</a>
+        <button onclick="closeSheet()">Close</button>
+      </div>
+    </div>`;
+  sheetBody.scrollTop = 0;
+}
+
+/* =========================================================
+   7. HERO TEXT ANIMATION
+   ========================================================= */
+function animateText(selector, delay = 0) {
+    const el = document.querySelector(selector);
+    const text = el.textContent;
+    el.textContent = "";
+    text.split("").forEach((letter, i) => {
+        const span = document.createElement("span");
+        span.textContent = letter;
+        span.style.animation = `letterReveal 0.5s forwards ${delay + i * 0.04}s`;
+        el.appendChild(span);
+    });
+}
+animateText(".light", 0);
+animateText(".glow", 0.4);
+</script>
+
+</body>
+</html>
