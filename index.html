@@ -266,6 +266,11 @@ footer p { margin: 0; }
 </head>
 
 <body>
+    <iframe
+  name="googleFormTarget"
+  id="googleFormTarget"
+  style="display:none;"
+></iframe>
 
 <!-- HERO -->
 <section class="hero">
@@ -1093,7 +1098,9 @@ function bad(id, on){ document.getElementById(id).closest(".field").classList.to
 
 function submitApply(){
   const v = id => document.getElementById(id).value.trim();
+
   let ok = true;
+
   const checks = [
     ["f_name", v("f_name").length >= 3],
     ["f_father", v("f_father").length >= 3],
@@ -1103,50 +1110,168 @@ function submitApply(){
     ["f_course", v("f_course") !== ""],
     ["f_p1", v("f_p1") !== ""]
   ];
-  checks.forEach(([id, good]) => { bad(id, !good); if(!good) ok = false; });
+
+  checks.forEach(([id, good]) => {
+    bad(id, !good);
+    if(!good) ok = false;
+  });
+
   if(!ok){
-    document.querySelector("#formWrap .field.bad input, #formWrap .field.bad select").focus();
+    document
+      .querySelector("#formWrap .field.bad input, #formWrap .field.bad select")
+      .focus();
     return;
   }
 
-  const prefLabel = isMbbs() ? "Preferred countries" : "Preferred states";
-  const prefs = [v("f_p1"), v("f_p2"), v("f_p3")].filter(Boolean).join(", ");
+  const prefLabel = isMbbs()
+    ? "Preferred countries"
+    : "Preferred states";
+
+  const prefs = [
+    v("f_p1"),
+    v("f_p2"),
+    v("f_p3")
+  ].filter(Boolean).join(", ");
+
   const data = {
-    name: v("f_name"), father: v("f_father"), mother: v("f_mother"),
-    phone: v("f_phone"), email: v("f_email"), course: v("f_course"), prefs, prefLabel
+    name: v("f_name"),
+    father: v("f_father"),
+    mother: v("f_mother"),
+    phone: v("f_phone"),
+    email: v("f_email"),
+    course: v("f_course"),
+    prefs: prefs,
+    prefLabel: prefLabel
   };
 
-  /* ---- Hook your backend here ----
-     Example with Formspree / Google Apps Script:
-     fetch("https://formspree.io/f/YOUR_ID", {
-       method:"POST", headers:{"Content-Type":"application/json"}, body: JSON.stringify(data)
-     });
-  --------------------------------- */
-  console.log("Application submitted:", data);
 
-  const text = `New admission enquiry%0A%0AName: ${encodeURIComponent(data.name)}%0AFather: ${encodeURIComponent(data.father)}%0AMother: ${encodeURIComponent(data.mother)}%0APhone: ${data.phone}%0AEmail: ${encodeURIComponent(data.email)}%0ACourse: ${encodeURIComponent(data.course)}%0A${encodeURIComponent(prefLabel)}: ${encodeURIComponent(prefs)}`;
+  /* =========================================
+     SEND APPLICATION TO GOOGLE FORM
+     ========================================= */
+
+  const googleForm = document.createElement("form");
+
+  googleForm.method = "POST";
+
+  googleForm.action =
+    "https://docs.google.com/forms/d/e/" +
+    "1FAIpQLSehM9oLbJ-Sqh5Rs2JoVHYPQ33LiZv3yP20gmNlLGdJzJOq0w" +
+    "/formResponse";
+
+  googleForm.target = "googleFormTarget";
+
+  googleForm.style.display = "none";
+
+
+  const fields = {
+    "entry.439008984": data.name,
+    "entry.866332000": data.father,
+    "entry.1037971901": data.mother,
+    "entry.468016380": data.phone,
+    "entry.471746100": data.email,
+    "entry.1419740123": data.course,
+    "entry.1778201304": data.prefs
+  };
+
+
+  Object.entries(fields).forEach(([name, value]) => {
+
+    const input = document.createElement("input");
+
+    input.type = "hidden";
+    input.name = name;
+    input.value = value;
+
+    googleForm.appendChild(input);
+
+  });
+
+
+  document.body.appendChild(googleForm);
+
+  googleForm.submit();
+
+
+  /*
+     Remove the temporary form after submission.
+     The Google Form submission itself has already
+     been initiated by the browser.
+  */
+
+  setTimeout(() => {
+    googleForm.remove();
+  }, 2000);
+
+
+  /* =========================================
+     SHOW SUCCESS MESSAGE
+     ========================================= */
+
+  const text =
+    `New admission enquiry%0A%0A` +
+    `Name: ${encodeURIComponent(data.name)}%0A` +
+    `Father: ${encodeURIComponent(data.father)}%0A` +
+    `Mother: ${encodeURIComponent(data.mother)}%0A` +
+    `Phone: ${data.phone}%0A` +
+    `Email: ${encodeURIComponent(data.email)}%0A` +
+    `Course: ${encodeURIComponent(data.course)}%0A` +
+    `${encodeURIComponent(prefLabel)}: ${encodeURIComponent(prefs)}`;
+
 
   sheetTitle.textContent = "Application sent";
-  sheetSub.textContent = "Reference saved. Keep your phone reachable.";
+
+  sheetSub.textContent =
+    "Reference saved. Keep your phone reachable.";
+
   sheetBody.innerHTML = `
     <div class="done">
+
       <div class="tick">✓</div>
+
       <h4>Thanks, ${data.name.split(" ")[0]}</h4>
-      <p>A counsellor will call ${data.phone} within 24 hours with your shortlist.</p>
+
+      <p>
+        A counsellor will call ${data.phone}
+        within 24 hours with your shortlist.
+      </p>
+
       <div class="summary">
+
         <b>Name:</b> ${data.name}<br>
+
         <b>Father's name:</b> ${data.father}<br>
+
         <b>Mother's name:</b> ${data.mother}<br>
+
         <b>Phone:</b> ${data.phone}<br>
+
         <b>Email:</b> ${data.email}<br>
+
         <b>Course:</b> ${data.course}<br>
+
         <b>${prefLabel}:</b> ${prefs}
+
       </div>
+
       <div class="doneBtns">
-        <a class="primary" href="https://wa.me/919682533249?text=${text}" target="_blank" rel="noopener">Send on WhatsApp</a>
-        <button onclick="closeSheet()">Close</button>
+
+        <a
+          class="primary"
+          href="https://wa.me/919682533249?text=${text}"
+          target="_blank"
+          rel="noopener"
+        >
+          Send on WhatsApp
+        </a>
+
+        <button onclick="closeSheet()">
+          Close
+        </button>
+
       </div>
+
     </div>`;
+
   sheetBody.scrollTop = 0;
 }
 
